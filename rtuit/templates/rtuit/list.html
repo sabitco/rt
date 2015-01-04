@@ -1,0 +1,13 @@
+{% extends "home.html" %}
+
+{% block content %}
+  {% if trend_list %}
+    <div class="panel-body list-group">
+      {% for trend in trend_list %}       
+        <a  class="list-group-item " title="{{trend.id}}/">{{ trend.name }}</a>   
+      {% endfor %}
+    </div>
+  {% else %}
+        <p>No hay tendencias disponibles</p>
+    {% endif %}
+{% endblock %}
