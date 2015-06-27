@@ -59,9 +59,11 @@ WSGI_APPLICATION = 'rt.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.dummy'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -106,9 +108,9 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
-#MongoDB
+
 AUTHENTICATION_BACKENDS = (
-    'mongoengine.django.auth.MongoEngineBackend',
+    ('django.contrib.auth.backends.ModelBackend'),
 )
 
 SESSION_ENGINE = 'mongoengine.django.sessions'

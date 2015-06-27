@@ -5,6 +5,7 @@ from rtuit.views import TrendInfoView
 
 urlpatterns = patterns('',
     url(r'^add/$', TrendCreateView.as_view(), name='create'),
+    url(r'^add_twitter/$', TrendCreateView.as_view(), name='create_twitter'),
     url(r'^informacion/$', TrendInfoView.as_view(), name='informacion'),
 	url(r'^(?P<pk>[\w\d]+)/summary/$', TrendSummaryView.as_view(), name='summary'),
     url(r'^(?P<pk>[\w\d]+)/$', TrendDetailView.as_view(), name='detail'),

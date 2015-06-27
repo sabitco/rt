@@ -27,3 +27,34 @@ class Trend(Document):
     def get_delete_url(self):
         return reverse('delete', args=[self.id])
 
+
+class Status(Document):
+    """docstring for Status"""
+
+    contributors = DictField()
+    truncated = BooleanField()
+    text = StringField(required=True)
+    in_reply_to_status_id = IntField()
+    favorite_count = IntField()
+    source = StringField()
+    retweeted = BooleanField()
+    coordinate = DictField()
+    entities = DictField()
+    in_reply_to_screen_name = StringField()
+    in_reply_to_user_id = IntField()
+    retweet_count = IntField()
+    id_str = StringField(max_length=200, required=True)
+    favorited = BooleanField()
+    user = DictField()
+    geo = DictField()
+    in_reply_to_status_id_str = StringField()
+    lang = StringField()
+    created_at = StringField()
+    place = DictField()
+    trend = StringField()
+    date_modified = DateTimeField(default=datetime.now)
+    is_published = BooleanField(default=True)
+
+
+    def __unicode__(self):
+        return self.id_str

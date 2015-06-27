@@ -10,9 +10,21 @@
               </div>
            
               <div class="alert alert-warning">
-                <strong>Catidad de tuits:</strong> 1000.
+                <strong>Catidad de total de tuits:</strong> {{ cantidad }}
               </div>
-             
-              
-        </div>
+
+              <div class="alert alert-warning">
+                <strong>Catidad de tuits de la tendencia:</strong> {{ cantidad_status_list }}
+              </div>
+
+              {% if status_list %}
+                <div class="panel-body list-group">
+                  {% for status in status_list %}       
+                    <a  class="list-group-item " title="">{{ status.text }}</a>   
+                  {% endfor %}
+                </div>
+              {% else %}
+                <p>No hay tuits disponibles</p>
+              {% endif %}
+  </div>
 {% endblock %}

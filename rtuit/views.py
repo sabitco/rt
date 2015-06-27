@@ -6,6 +6,7 @@ from django.views.generic import ListView, DetailView
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from rtuit.models import Trend
+from rtuit.models import Status
 from rtuit.forms import TrendForm
 from django.views.generic.base import TemplateView
 
@@ -15,7 +16,18 @@ class TrendSummaryView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(TrendSummaryView, self).get_context_data(**kwargs)
         context['trend'] =Trend.objects(id=self.kwargs['pk'])[0]
+        context['cantidad']= Status.objects.all().count()
+        context['cantidad_status_list']= Status.objects(trend= context['trend'].name).count()
+        context['status_list']= Status.objects(trend= context['trend'].name)
         return context
+
+class TrendAddTwitterView(TemplateView):
+    template_name = "rtuit/add_twitter.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(TrendAddTwitterView, self).get_context_data(**kwargs)
+        messages.success(self.request, "Tistado guardado exitosamente.")
+        return "listado guardado exitosamente."
 
 class TrendInfoView(TemplateView):
     template_name = "rtuit/info.html"
