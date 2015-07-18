@@ -7,8 +7,11 @@ from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from rtuit.models import Trend
 from rtuit.models import Status
+from rtuit.models import CandidateWords
 from rtuit.forms import TrendForm
 from django.views.generic.base import TemplateView
+from rtuit.operations import operations
+
 
 class TrendSummaryView(TemplateView):
     template_name = "rtuit/summary.html"
@@ -17,8 +20,12 @@ class TrendSummaryView(TemplateView):
         context = super(TrendSummaryView, self).get_context_data(**kwargs)
         context['trend'] =Trend.objects(id=self.kwargs['pk'])[0]
         context['cantidad']= Status.objects.all().count()
+        context['idf']= operations.calculateIdf()
         context['cantidad_status_list']= Status.objects(trend= context['trend'].name).count()
         context['status_list']= Status.objects(trend= context['trend'].name)
+
+
+        context['candidate_sumary']= operations.betterWords(CandidateWords.objects(trend= context['trend'].name))
         return context
 
 class TrendAddTwitterView(TemplateView):

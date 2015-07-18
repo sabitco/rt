@@ -26,5 +26,31 @@
               {% else %}
                 <p>No hay tuits disponibles</p>
               {% endif %}
+
+
+              {% if candidate_words_list %}
+                <div class="panel-body list-group">
+                  {% for candidate_words in candidate_words_list %}     
+                      {% for key,value in candidate_words.words.items %}
+                        <a  class="list-group-item " title=""> {{ key }} - {{ value }}</a>  
+                      {% endfor %}
+                  {% endfor %}
+                </div>
+              {% else %}
+                <p>No hay palabras calculadas</p>
+              {% endif %}
+
+              {% if candidate_sumary %}
+                <div class="panel-body list-group">
+                  {% for candidate_sumary_words in candidate_sumary %}     
+                      {% for key,value in candidate_sumary_words.words.items %}
+                        <a  class="list-group-item " title=""> {{ key }} - {{ value }}</a>  
+                      {% endfor %}
+                  {% endfor %}
+                </div>
+              {% else %}
+                <p>No hay palabras calculadas</p>
+              {% endif %}
+
   </div>
 {% endblock %}

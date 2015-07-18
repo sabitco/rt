@@ -11,7 +11,6 @@ class Trend(Document):
     date_modified = DateTimeField(default=datetime.now)
     is_published = BooleanField(default=True)
 
-
     def __unicode__(self):
         return self.name
 
@@ -26,7 +25,6 @@ class Trend(Document):
 
     def get_delete_url(self):
         return reverse('delete', args=[self.id])
-
 
 class Status(Document):
     """docstring for Status"""
@@ -55,6 +53,14 @@ class Status(Document):
     date_modified = DateTimeField(default=datetime.now)
     is_published = BooleanField(default=True)
 
+    def __unicode__(self):
+        return self.id_str
+
+class CandidateWords(Document):
+    trend = StringField(required=True)
+    words = DictField()
+    date_modified = DateTimeField(default=datetime.now)
+    is_published = BooleanField(default=True)
 
     def __unicode__(self):
         return self.id_str
