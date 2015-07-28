@@ -11,7 +11,7 @@ from rtuit.models import CandidateWords
 from rtuit.forms import TrendForm
 from django.views.generic.base import TemplateView
 from rtuit.operations import operations
-
+from collections import OrderedDict
 
 class TrendSummaryView(TemplateView):
     template_name = "rtuit/summary.html"
@@ -21,12 +21,32 @@ class TrendSummaryView(TemplateView):
         context['trend'] =Trend.objects(id=self.kwargs['pk'])[0]
         context['cantidad']= Status.objects.all().count()
         context['idf']= operations.calculateIdf()
-        context['cantidad_status_list']= Status.objects(trend= context['trend'].name).count()
+        context['cantidad_status_list']= Status.objects(trend= context['trend'].name).count()           
         context['status_list']= Status.objects(trend= context['trend'].name)
-
-
         context['candidate_sumary']= operations.betterWords(CandidateWords.objects(trend= context['trend'].name))
+        betterWords = dict()
+        
+        status = dict() 
+        status_order = dict() 
+
+
+        for lw in context['candidate_sumary']:
+            betterWords = dict((sorted(lw.words.items(), key=lambda x: x[1], reverse=True)[:10]))
+
+        ss = dict()
+        for s in context['status_list']:
+            ss[s.normalized] = s
+
+
+        for s in ss.values():
+            for k, v in betterWords.items():
+                if k in s.normalized:
+                    status[s.id_str] = v + status[s.id_str] if  s.id_str in status else v
+    
+        context['status_list']= Status.objects(id_str__in = sorted(status, key=lambda x: x[1], reverse=True)[:20]) 
         return context
+
+
 
 class TrendAddTwitterView(TemplateView):
     template_name = "rtuit/add_twitter.html"

@@ -9,8 +9,6 @@ class operations:
     	return 
 
    def betterWords(listWords):
-   		return listWords
-
-
+        return listWords
 
 

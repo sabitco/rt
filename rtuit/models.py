@@ -52,6 +52,7 @@ class Status(Document):
     trend = StringField()
     date_modified = DateTimeField(default=datetime.now)
     is_published = BooleanField(default=True)
+    normalized = StringField()
 
     def __unicode__(self):
         return self.id_str
